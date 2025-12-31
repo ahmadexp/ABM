@@ -8,7 +8,7 @@ A real-time agent-based modeling simulation built on the **Kinetica Game Engine*
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Features](#features)
 - [Screenshots](#screenshots)
@@ -27,7 +27,7 @@ A real-time agent-based modeling simulation built on the **Kinetica Game Engine*
 
 ---
 
-## ✨ Features
+## Features
 
 ### Agent-Based Simulation
 - **Autonomous Agents**: Zombies and survivors with independent AI decision-making
@@ -52,13 +52,13 @@ A real-time agent-based modeling simulation built on the **Kinetica Game Engine*
 
 ---
 
-## 🖼️ Screenshots
+## Screenshots
 
 *Start the simulation to see the agents in action!*
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 ### System Requirements
 - **OS**: macOS 11.3 or later (optimized for Apple Silicon M-series)
@@ -77,7 +77,7 @@ A real-time agent-based modeling simulation built on the **Kinetica Game Engine*
 
 ---
 
-## 🔧 Installation
+## Installation
 
 ### Install Dependencies (macOS with Homebrew)
 
@@ -101,7 +101,7 @@ cd ABM_code
 
 ---
 
-## 🏗️ Building
+## Building
 
 ### Configure the Build
 
@@ -125,7 +125,7 @@ meson compile -C build
 
 ---
 
-## 🚀 Running
+## Running
 
 ### Launch the Simulation
 
@@ -139,7 +139,7 @@ The application currently runs with default settings. Configuration is managed t
 
 ---
 
-## 🎮 Controls
+## Controls
 
 ### Main Menu
 - **W / Up Arrow**: Navigate menu up
@@ -195,7 +195,7 @@ ABM_code/
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### settings.ini
 
@@ -216,7 +216,7 @@ mipmapping          = 1    ;  # 0=off, 1=on
 
 ---
 
-## 🔬 Technical Details
+## Technical Details
 
 ### Architecture
 
@@ -255,7 +255,7 @@ mipmapping          = 1    ;  # 0=off, 1=on
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Build Issues
 
@@ -306,7 +306,7 @@ brew install sdl2 sdl2_image sdl2_mixer
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please follow these guidelines:
 
@@ -324,19 +324,13 @@ Contributions are welcome! Please follow these guidelines:
 
 ---
 
-## 📄 License
+## License
 
 This project is built on the **Kinetica Game Engine** by Ahmad Byagowi.
 
 *License details to be added*
 
 ---
-
-## 👏 Credits
-
-### Development
-- **Ahmad Byagowi**: Original Kinetica Game Engine
-- **Agent-Based Modeling**: Simulation logic and AI implementation
 
 ### Libraries & Tools
 - **SDL2**: Simple DirectMedia Layer (window/input/audio)
@@ -351,7 +345,7 @@ This project is built on the **Kinetica Game Engine** by Ahmad Byagowi.
 
 ---
 
-## 📞 Contact & Support
+## Contact & Support
 
 For questions, issues, or suggestions:
 - **Issues**: Use the GitHub issue tracker
@@ -359,7 +353,7 @@ For questions, issues, or suggestions:
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
 ### Planned Features
 - [ ] Network multiplayer support
@@ -382,4 +376,21 @@ For questions, issues, or suggestions:
 
 ---
 
-*Built with ❤️ using the Kinetica Game Engine*
+*Built with using the Kinetica Game Engine*
+
+
+## License
+
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+
+You are free to:
+
+Share — copy and redistribute the material in any medium or format
+Adapt — remix, transform, and build upon the material
+Under the following terms:
+
+Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+NonCommercial — You may not use the material for commercial purposes.
+For full details, see: https://creativecommons.org/licenses/by-nc/4.0/
+
+As the project creator, I reserve the right to use this material commercially or under any other terms.
