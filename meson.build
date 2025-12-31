@@ -1,23 +1,30 @@
 project('ABM', 'cpp',
-  default_options : ['cpp_std=c++11'])
+  version : '0.1',
+  default_options : ['warning_level=1', 'cpp_std=c++11'])
 
-cpp = meson.get_compiler('cpp')
+# Find dependencies
+sdl2_dep = dependency('sdl2')
+sdl2_image_dep = dependency('SDL2_image')
+sdl2_mixer_dep = dependency('SDL2_mixer')
 
-sdl2 = dependency('sdl2')
-sdl2_image = dependency('SDL2_image')
-sdl2_mixer = dependency('SDL2_mixer')
-
+# On macOS, use the system OpenGL framework
 if host_machine.system() == 'darwin'
-  # On macOS, GL and GLU are part of the OpenGL framework
-  gl = dependency('appleframeworks', modules : ['OpenGL'])
-  glu = gl # Use the same dependency to avoid linking Mesa
+  opengl_dep = dependency('appleframeworks', modules : ['OpenGL'])
 else
-  gl = dependency('gl')
-  glu = dependency('glu')
+  opengl_dep = dependency('gl')
 endif
 
-inc = include_directories('source', 'source/generic', 'source/projectspecific')
+# Source files
+sources = [
+  'source/main.cpp'
+]
 
-executable('ABM', 'source/main.cpp',
-  dependencies : [sdl2, sdl2_image, sdl2_mixer, gl, glu],
-  include_directories : inc)
+# Include directories - add both source and source/generic
+inc = include_directories('source', 'source/generic')
+
+# Executable
+executable('ABM',
+  sources,
+  include_directories : inc,
+  dependencies : [sdl2_dep, sdl2_image_dep, sdl2_mixer_dep, opengl_dep],
+  install : true)

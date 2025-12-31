@@ -24,15 +24,15 @@ int main(int argc,char **argv){
 	// Main Game Loop
 	while(!shutdownprogram){
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		SDL_PumpEvents();
 		updateinput();
 
-		// Update and draw the main project
-		if(dashonpercent < 100.f) projectloop();
+		// Always update and draw the game (even when menu is open)
+		projectloop();
 
-		// Update and draw the dashboard overlay
+		// Draw the dashboard overlay on top
 		dashloop();
 
 		if(window) SDL_GL_SwapWindow(window);
