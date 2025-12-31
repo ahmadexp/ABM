@@ -1,0 +1,41 @@
+SDL_Surface *IMG_LoadOptimize( std::string filename ){
+	SDL_Surface* loadedImage = NULL;
+	SDL_Surface* optimizedImage = NULL; 
+	loadedImage = IMG_Load( filename.c_str() ); 
+	if( loadedImage != NULL ){
+		optimizedImage = SDL_ConvertSurface( loadedImage, screen->format, 0 );
+		SDL_FreeSurface( loadedImage );
+	} 
+	return optimizedImage;
+}
+
+SDL_Surface *IMG_LoadOptimizeWithColorKey( std::string filename ){
+	SDL_Surface* loadedImage = NULL;
+	SDL_Surface* optimizedImage = NULL; 
+	loadedImage = IMG_Load( filename.c_str() ); 
+	if( loadedImage != NULL ){
+		optimizedImage = SDL_ConvertSurface( loadedImage, screen->format, 0 );
+		Uint32 colorkey = SDL_MapRGB( optimizedImage->format, 0, 0xFF, 0xFF );
+		SDL_SetColorKey( optimizedImage, SDL_TRUE, colorkey );
+		SDL_FreeSurface( loadedImage );
+	} 
+	return optimizedImage;
+}
+
+SDL_Surface *IMG_LoadOptimizeAlpha( std::string filename ){
+	SDL_Surface* loadedImage = NULL;
+	SDL_Surface* optimizedImage = NULL; 
+	loadedImage = IMG_Load( filename.c_str() ); 
+	if( loadedImage != NULL ){
+		optimizedImage = SDL_ConvertSurfaceFormat( loadedImage, SDL_PIXELFORMAT_RGBA8888, 0 );
+		SDL_FreeSurface( loadedImage );
+	} 
+	return optimizedImage;
+}
+
+void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip = NULL ){
+	SDL_Rect offset;
+	offset.x = x;
+	offset.y = y;
+	SDL_BlitSurface( source, clip, destination, &offset );
+}

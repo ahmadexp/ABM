@@ -1,0 +1,46 @@
+void menu(){
+	static int menucount = 0;
+	if (menucount++ % 300 == 0) printf("In menu()...\n");
+
+	//set the camera
+	set2dcamera(-400.f,400.f,-400.f*screena,400.f*screena);
+
+    // TEST WHITE BOX - Drawing after everything else to be sure
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_BLEND);
+    glDisable(GL_DEPTH_TEST);
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_QUADS);
+    glVertex2f(-100.0f, -100.0f);
+    glVertex2f(100.0f, -100.0f);
+    glVertex2f(100.0f, 100.0f);
+    glVertex2f(-100.0f, 100.0f);
+    glEnd();
+    glEnable(GL_TEXTURE_2D);
+
+	//drawtiledark(-400.f*screena,-400.f,400.f*screena,400.f);
+
+	//drawtextcenteraligned(0.f,-300.f,(char*)"Kinetica Game Engine",1.5f);
+	//draw2dquad(0,-300.f,175.f*4.f,175.f,logotexturecoords,1,0.f);
+
+	bool up=0,down=0,select=0;
+
+	if(keystate[SDL_SCANCODE_W]==2|keystate[SDL_SCANCODE_UP]==2)up=1;
+	if(keystate[SDL_SCANCODE_S]==2|keystate[SDL_SCANCODE_DOWN]==2)down=1;
+	if(keystate[SDL_SCANCODE_SPACE]==2|keystate[SDL_SCANCODE_RETURN]==2)select=1;
+	
+
+	menustaterendering=0;
+
+	if(gamestate==1)if(menuitem((char*)"Resume",select)){
+		gamestate=gamestate_offlineplay;}
+	if(menuitem((char*)"Start Simulation",select)){
+		playercount=1;
+		startnewgame();
+		gamestate=gamestate_offlineplay;}
+
+	if(up)menustate-=1;
+	if(down)menustate+=1;
+	if(menustate<0)menustate=0;
+	if(menustate>menustaterendering-1)menustate=menustaterendering-1;
+}
