@@ -2,6 +2,9 @@
 
 A real-time agent-based modeling simulation built on the **Kinetica Game Engine**, featuring autonomous agents (zombies and survivors) navigating a procedurally generated environment with dynamic AI behaviors.
 
+<img width="1282" height="749" alt="Screenshot 2025-12-30 at 11 28 44 PM" src="https://github.com/user-attachments/assets/cbecd88b-96da-46dd-b954-68b8819e4cba" />
+
+
 ![Version](https://img.shields.io/badge/version-0.1-blue)
 ![Platform](https://img.shields.io/badge/platform-macOS-lightgrey)
 ![OpenGL](https://img.shields.io/badge/OpenGL-2.1-green)
