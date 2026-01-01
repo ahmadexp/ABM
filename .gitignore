@@ -1,0 +1,4 @@
+subprojects/packagecache
+subprojects/SDL2-*
+subprojects/SDL2_image-*
+subprojects/SDL2_mixer-*
