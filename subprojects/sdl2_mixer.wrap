@@ -11,3 +11,9 @@ wrapdb_version = 2.6.2-4
 
 [provide]
 sdl2_mixer = sdl2_mixer_dep
+
+[options]
+flac = disabled
+mpg123 = disabled
+opus = disabled
+default_library = static

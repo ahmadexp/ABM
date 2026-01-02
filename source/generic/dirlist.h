@@ -20,8 +20,12 @@ void deletedirentry(int number){
 	n_direntrys=n_direntrys-1;
 }
 
+#ifdef _WIN32
+#include <windows.h>
+#else
 #include <dirent.h>
 #include <sys/stat.h>
+#endif
 #ifndef MAX_PATH
 #define MAX_PATH 256
 #endif
@@ -39,6 +43,21 @@ void dirlist(char* directory){
 	}
 	// Fallback check if it ends in slash (pure dir)
 	
+#ifdef _WIN32
+	WIN32_FIND_DATAA findData;
+	std::string searchPath = path + "\\*";
+	HANDLE hFind = FindFirstFileA(searchPath.c_str(), &findData);
+	if (hFind != INVALID_HANDLE_VALUE) {
+		do {
+			if (strcmp(findData.cFileName, ".") == 0 || strcmp(findData.cFileName, "..") == 0) continue;
+			
+			direntrys[n_direntrys] = new direntry(findData.cFileName);
+			if (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) direntrys[n_direntrys]->folder = 1;
+			n_direntrys++;
+		} while (FindNextFileA(hFind, &findData) && n_direntrys < maxdirentrys);
+		FindClose(hFind);
+	}
+#else
 	DIR *d = opendir(path.c_str());
 	if (d) {
 		struct dirent *dir;
@@ -52,4 +71,5 @@ void dirlist(char* directory){
 		}
 		closedir(d);
 	}
+#endif
 }

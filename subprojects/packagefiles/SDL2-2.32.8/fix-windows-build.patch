@@ -1,0 +1,93 @@
+diff --git a/src/atomic/SDL_spinlock.c b/src/atomic/SDL_spinlock.c
+index 1111111..2222222 100644
+--- a/src/atomic/SDL_spinlock.c
++++ b/src/atomic/SDL_spinlock.c
+@@ -81,7 +81,7 @@ SDL_AtomicTryLock(SDL_SpinLock *lock)
+ #elif defined(_WIN32_WCE) && _WIN32_WCE >= 0x420
+     /* Counter-macro to disable the macro that renames our function */
+     return InterlockedExchange((LPLONG)lock, 1) == 0;
+-#elif (defined(HAVE_GCC_ATOMICS) && HAVE_GCC_ATOMICS) || defined(HAVE_GCC_SYNC_LOCK_TEST_AND_SET)
++#elif (defined(HAVE_GCC_ATOMICS) && HAVE_GCC_ATOMICS) || (defined(HAVE_GCC_SYNC_LOCK_TEST_AND_SET) && HAVE_GCC_SYNC_LOCK_TEST_AND_SET)
+     return (__sync_lock_test_and_set(lock, 1) == 0);
+ #elif defined(__GNUC__) && defined(__arm__) && \
+         (defined(__ARM_ARCH_3__) || defined(__ARM_ARCH_3M__) || \
+@@ -186,7 +186,7 @@ SDL_AtomicUnlock(SDL_SpinLock *lock)
+ void
+ SDL_AtomicUnlock(SDL_SpinLock *lock)
+ {
+-#if (defined(HAVE_GCC_ATOMICS) && HAVE_GCC_ATOMICS) || defined(HAVE_GCC_SYNC_LOCK_TEST_AND_SET)
++#if (defined(HAVE_GCC_ATOMICS) && HAVE_GCC_ATOMICS) || (defined(HAVE_GCC_SYNC_LOCK_TEST_AND_SET) && HAVE_GCC_SYNC_LOCK_TEST_AND_SET)
+     __sync_lock_release(lock);
+ #elif defined(_MSC_VER) && (defined(_M_IX86) || defined(_M_X64))
+     _ReadWriteBarrier();
+diff --git a/src/video/dummy/SDL_nullvideo.c b/src/video/dummy/SDL_nullvideo.c
+index 3333333..4444444 100644
+--- a/src/video/dummy/SDL_nullvideo.c
++++ b/src/video/dummy/SDL_nullvideo.c
+@@ -55,7 +55,7 @@ static void DUMMY_DeleteDevice(SDL_VideoDevice * device)
+ static SDL_VideoDevice *
+ DUMMY_CreateDevice(int devindex)
+ {
+-#ifdef SDL_INPUT_LINUXEV
++#if defined(SDL_INPUT_LINUXEV) && SDL_INPUT_LINUXEV
+     const char *devices = SDL_getenv("SDL_EVDEV_DEVICES");
+ #endif
+     SDL_VideoDevice *device;
+@@ -69,7 +69,7 @@ DUMMY_CreateDevice(int devindex)
+     device->VideoInit = DUMMY_VideoInit;
+     device->VideoQuit = DUMMY_VideoQuit;
+     device->PumpEvents = DUMMY_PumpEvents;
+-#ifdef SDL_INPUT_LINUXEV
++#if defined(SDL_INPUT_LINUXEV) && SDL_INPUT_LINUXEV
+     if (devices != NULL)
+         device->create_window = DUMMY_CreateWindow;
+     else
+@@ -104,7 +104,7 @@ DUMMY_VideoInit(_THIS)
+     mode.driverdata = NULL;
+     if (SDL_AddBasicVideoDisplay(&mode) < 0) {
+         if (SDL_AddVideoDisplay(&display, SDL_FALSE) < 0) {
+-#ifdef SDL_INPUT_LINUXEV
++#if defined(SDL_INPUT_LINUXEV) && SDL_INPUT_LINUXEV
+             const char *devices = SDL_getenv("SDL_EVDEV_DEVICES");
+             if (devices != NULL)
+                 return -1;
+@@ -124,7 +124,7 @@ DUMMY_VideoInit(_THIS)
+ void
+ DUMMY_VideoQuit(_THIS)
+ {
+-#ifdef SDL_INPUT_LINUXEV
++#if defined(SDL_INPUT_LINUXEV) && SDL_INPUT_LINUXEV
+     SDL_EVDEV_Quit();
+ #endif
+ }
+@@ -157,7 +157,7 @@ DUMMY_CreateWindowFramebuffer(_THIS, SDL_Window * window, Uint32 * format, void
+ void
+ DUMMY_PumpEvents(_THIS)
+ {
+-#ifdef SDL_INPUT_LINUXEV
++#if defined(SDL_INPUT_LINUXEV) && SDL_INPUT_LINUXEV
+     SDL_EVDEV_Poll();
+ #endif
+ }
+@@ -167,7 +167,7 @@ int
+ DUMMY_CreateWindow(_THIS, SDL_Window * window)
+ {
+     /* Allocate window internal data */
+-#ifdef SDL_INPUT_LINUXEV
++#if defined(SDL_INPUT_LINUXEV) && SDL_INPUT_LINUXEV
+     if (SDL_EVDEV_Init() < 0) {
+         return -1;
+     }
+diff --git a/src/video/SDL_video.c b/src/video/SDL_video.c
+index 5555555..6666666 100644
+--- a/src/video/SDL_video.c
++++ b/src/video/SDL_video.c
+@@ -104,7 +104,7 @@ static VideoBootStrap *bootstrap[] = {
+ #if SDL_VIDEO_DRIVER_DUMMY
+     &DUMMY_bootstrap,
+ #endif
+-#ifdef SDL_INPUT_LINUXEV
++#if defined(SDL_INPUT_LINUXEV) && SDL_INPUT_LINUXEV
+     &EVDEV_bootstrap,
+ #endif
+     NULL
